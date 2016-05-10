@@ -75,7 +75,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.example.compute.sendgrid.SendEmailServlet</mainClass>
+              <mainClass>com.example.compute.mailjet.MailjetSender</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
