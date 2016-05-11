@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-// [START mailjet_imports]
 package com.example.compute.mailjet;
 
+// [START mailjet_imports]
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.MailjetResponse;
@@ -29,14 +29,17 @@ import org.json.JSONObject;
 
 // [START app]
 public class MailjetSender{
-  private static final String MAILJET_API_KEY = System.getenv("50f5221edb38fd27d71ef828904e6040");
-  private static final String MAILJET_SECRET_KEY = System.getenv("0f282ed3e5154c755554245cacacebee");
-  private static MailjetClient client = new MailjetClient(MAILJET_API_KEY, MAILJET_SECRET_KEY);
-  
-  public static void main(String[] args) {
-    String recipient = "sfan@google.com";
-    String sender = "jsf.fan@gmail.com";
 
+  public static void main(String[] args) {
+    final String MAILJET_API_KEY = "YOUR-MAILJET-API-KEY";
+    final String MAILJET_SECRET_KEY = "YOUR-MAILJET-SECRET-KEY";
+    MailjetClient client = new MailjetClient(MAILJET_API_KEY, MAILJET_SECRET_KEY);
+
+    MailjetSender sender = new MailjetSender();
+    sender.sendMailjet(args[0], args[1], client);
+  }
+
+  public MailjetResponse sendMailjet(String recipient, String sender, MailjetClient client) {
     MailjetRequest email = new MailjetRequest(Email.resource)
         .property(Email.FROMEMAIL, sender)
         .property(Email.FROMNAME, "pandora")
@@ -53,8 +56,10 @@ public class MailjetSender{
       // Read the response data and status
       System.out.println(response.getStatus());
       System.out.println(response.getData());
+      return response;
     } catch (MailjetException e) {
       System.out.println("Mailjet Exception: " + e);
+      return null;
     }
   }
 }
